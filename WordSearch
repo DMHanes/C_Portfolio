@@ -1,0 +1,272 @@
+#define _CRT_SECURE_NO_WARNINGS
+
+#include<stdio.h>
+#include<cmath>
+#include<stdlib.h>
+#include<time.h>
+#include<string.h>
+#include<ctype.h>
+
+/*Darby Hanes
+R11742206
+Project 6
+10/30/2023*/
+
+//This code "solves" a word search by searching for specific words, then replacing with specified characters for identification.
+const int SIZE1 = 30, SIZE2 = 100;
+char horiz(char ch[SIZE1][SIZE2]);
+char vert(char ch[SIZE1][SIZE2]);
+void display(char ch[SIZE1][SIZE2]);
+
+int main()
+{
+	//search letter by letter
+	
+	char tmp, ch[SIZE1][SIZE2];
+
+	FILE* fp;
+	fp = fopen("C:\\Users\\18324\\OneDrive\\Documents\\File.txt","r");
+
+	for (int i = 0;i < SIZE1;i++)
+	{
+		for (int j = 0;j < SIZE2;j++)
+		{
+			tmp = fgetc(fp);
+			ch[i][j] = tmp;
+		}
+	}
+
+	display(ch);
+
+	horiz(ch);
+	printf("\n\n");
+	vert(ch);
+
+	printf("\n\nNEW WORD SEARCH: \n\n");
+
+	display(ch);
+
+
+}
+
+//display
+void display(char ch[SIZE1][SIZE2])
+{
+	for (int i = 0;i < SIZE1;i++)
+		for (int j = 0;j < SIZE2;j++)
+			printf("%c", ch[i][j]);
+}
+
+//horizontal string finding
+char horiz(char ch[SIZE1][SIZE2])
+{
+	
+	int boatHorizForward(0);
+	int boatHorizBackward(0);
+	int engineerHorizForward(0);
+	int engineerHorizBackward(0);
+	int clinicHorizForward(0);
+	int clinicHorizBackward(0);
+
+
+	char boat[5] = "boat";
+	char engineer[9] = "engineer";
+	char clinic[7] = "clinic";
+
+	for (int i = 0;i < SIZE1;i++)//boat searching loop
+	{
+		for (int j = 0;j < SIZE2 - 8;j++)
+		{
+			if (ch[i][j] == 'b' && ch[i][j + 2] == 'o' && ch[i][j + 4] == 'a' && ch[i][j + 6] == 't')//forward
+			{
+				boatHorizForward++;
+					ch[i][j] = 'X';//replaces with new character
+					ch[i][j + 2] = 'X';
+					ch[i][j + 4] = 'X';
+					ch[i][j + 6] = 'X';
+			}
+			if (ch[i][j] == 't' && ch[i][j + 2] == 'a' && ch[i][j + 4] == 'o' && ch[i][j + 6] == 'b')//backward
+			{
+				boatHorizBackward++;
+				ch[i][j] = 'Y';//replaces with new character
+				ch[i][j + 2] = 'Y';
+				ch[i][j + 4] = 'Y';
+				ch[i][j + 6] = 'Y';
+			}
+		}
+	}
+	for (int i = 0;i < SIZE1;i++)//engineer searching loops
+	{
+		for (int j = 0;j < SIZE2 - 18;j++)
+		{
+			if (ch[i][j] == 'e' && ch[i][j + 2] == 'n' && ch[i][j + 4] == 'g' && ch[i][j + 6] == 'i'&& ch[i][j+8]=='n'&&ch[i][j+10]=='e'&&ch[i][j+12]=='e'&&ch[i][j+14]=='r')//forward
+			{
+				engineerHorizForward++;
+				ch[i][j] = 'X';//replaces with new character
+				ch[i][j + 2] = 'X';
+				ch[i][j + 4] = 'X';
+				ch[i][j + 6] = 'X';
+				ch[i][j + 8] = 'X';
+				ch[i][j + 10] = 'X';
+				ch[i][j + 12] = 'X';
+				ch[i][j + 14] = 'X';
+
+			}
+			if (ch[i][j] == 'r' && ch[i][j + 2] == 'e' && ch[i][j + 4] == 'e' && ch[i][j + 6] == 'n' && ch[i][j + 8] == 'i' && ch[i][j + 10] == 'g' && ch[i][j + 12] == 'n' && ch[i][j + 14] == 'e')//backward
+			{
+				engineerHorizBackward++;
+				ch[i][j] = 'Y';//replaces with new character
+				ch[i][j + 2] = 'Y';
+				ch[i][j + 4] = 'Y';
+				ch[i][j + 6] = 'Y';
+				ch[i][j + 8] = 'Y';
+				ch[i][j + 10] = 'Y';
+				ch[i][j + 12] = 'Y';
+				ch[i][j + 14] = 'Y';
+			}
+		}
+	}
+	for (int i = 0;i < SIZE1;i++)//clinic searching loop
+	{
+		for (int j = 0;j < SIZE2 - 12;j++)
+		{
+			if (ch[i][j] == 'c' && ch[i][j + 2] == 'l' && ch[i][j + 4] == 'i' && ch[i][j + 6] == 'n' && ch[i][j + 8] == 'i' && ch[i][j + 10] == 'c')//forward
+			{
+				clinicHorizForward++;
+				ch[i][j] = 'X';//replaces with new character
+				ch[i][j + 2] = 'X';
+				ch[i][j + 4] = 'X';
+				ch[i][j + 6] = 'X';
+				ch[i][j + 8] = 'X';
+				ch[i][j + 10] = 'X';
+			}
+			if (ch[i][j] == 'c' && ch[i][j + 2] == 'i' && ch[i][j + 4] == 'n' && ch[i][j + 6] == 'i' && ch[i][j + 8] == 'l' && ch[i][j + 10] == 'c')//backward
+			{
+				clinicHorizBackward++;
+				ch[i][j] = 'Y';
+				ch[i][j + 2] = 'Y';
+				ch[i][j + 4] = 'Y';
+				ch[i][j + 6] = 'Y';
+				ch[i][j + 8] = 'Y';
+				ch[i][j + 10] = 'Y';
+			}
+		}
+	}
+
+
+	printf("\n\"Boat\" Appears Forward Horizontally: %d", boatHorizForward);
+	printf("\n\"Boat\" Appears Backward Horizontally: %d", boatHorizBackward);
+	printf("\n\"Engineer\" Appears Forward Horizontally: %d", engineerHorizForward);
+	printf("\n\"Engineer\" Appears Backward Horizontally: %d", engineerHorizBackward);
+	printf("\n\"Clinic\" Appears Forward Horizontally: %d", clinicHorizForward);
+	printf("\n\"Clinic\" Appears Backward Horizontally: %d", clinicHorizBackward);
+	
+
+	return ch[SIZE1][SIZE2];
+}
+
+//vertical string finding
+
+char vert(char ch[SIZE1][SIZE2])
+{
+
+	int boatVertForward(0);
+	int boatVertBackward(0);
+	int engineerVertForward(0);
+	int engineerVertBackward(0);
+	int clinicVertForward(0);
+	int clinicVertBackward(0);
+
+
+	char boat[5] = "boat";
+	char engineer[9] = "engineer";
+	char clinic[7] = "clinic";
+
+	for (int i = 0;i < SIZE1-4;i++)//boat searching loop
+	{
+		for (int j = 0;j < SIZE2;j++)
+		{
+			if (ch[i][j] == 'b' && ch[i+1][j] == 'o' && ch[i+2][j] == 'a' && ch[i+3][j] == 't')//forward
+			{
+				boatVertForward++;
+				ch[i][j] = 'Z';//replaces with new character
+				ch[i+1][j] = 'Z';
+				ch[i+2][j] = 'Z';
+				ch[i+3][j] = 'Z';
+			}
+			if (ch[i][j] == 't' && ch[i+1][j] == 'a' && ch[i+2][j] == 'o' && ch[i+3][j] == 'b')//backward
+			{
+				boatVertBackward++;
+				ch[i][j] = 'W';//replaces with new character
+				ch[i+1][j] = 'W';
+				ch[i+2][j] = 'W';
+				ch[i+3][j] = 'W';
+			}
+		}
+	}
+	for (int i = 0;i < SIZE1-9;i++)//engineer searching loops
+	{
+		for (int j = 0;j < SIZE2;j++)
+		{
+			if (ch[i][j] == 'e' && ch[i+1][j] == 'n' && ch[i+2][j] == 'g' && ch[i+3][j] == 'i' && ch[i+4][j] == 'n' && ch[i+5][j] == 'e' && ch[i+6][j] == 'e' && ch[i+7][j] == 'r')//forward
+			{
+				engineerVertForward++;
+				ch[i][j] = 'Z';//replaces with new character
+				ch[i+1][j] = 'Z';
+				ch[i+2][j] = 'Z';
+				ch[i+3][j] = 'Z';
+				ch[i+4][j] = 'Z';
+				ch[i+5][j] = 'Z';
+				ch[i+6][j] = 'Z';
+				ch[i+7][j] = 'Z';
+		
+			}
+			if (ch[i][j] == 'r' && ch[i+1][j] == 'e' && ch[i+2][j] == 'e' && ch[i+3][j] == 'n' && ch[i+4][j] == 'i' && ch[i+5][j] == 'g' && ch[i+6][j] == 'n' && ch[i+7][j] == 'e')//backward
+			{
+				engineerVertBackward++;
+				ch[i][j] = 'W';//replaces with new character
+				ch[i+1][j] = 'W';
+				ch[i+2][j] = 'W';
+				ch[i+3][j] = 'W';
+				ch[i+4][j] = 'W';
+				ch[i+5][j] = 'W';
+				ch[i+6][j] = 'W';
+				ch[i+7][j] = 'W';
+			}
+		}
+	}
+	for (int i = 0;i < SIZE1-6;i++)//boat searching loop
+	{
+		for (int j = 0;j < SIZE2;j++)
+		{
+			if (ch[i][j] == 'c' && ch[i+1][j] == 'l' && ch[i+2][j] == 'i' && ch[i+3][j] == 'n' && ch[i+4][j] == 'i' && ch[i+5][j] == 'c')//forward
+			{
+				clinicVertForward++;
+				ch[i][j] = 'Z';//replaces with new character
+				ch[i+1][j] = 'Z';
+				ch[i+2][j] = 'Z';
+				ch[i+3][j] = 'Z';
+				ch[i+4][j] = 'Z';
+				ch[i+5][j] = 'Z';
+			}
+			if (ch[i][j] == 'c' && ch[i+1][j] == 'i' && ch[i+2][j] == 'n' && ch[i+3][j] == 'i' && ch[i+4][j] == 'l' && ch[i+5][j] == 'c')//backward
+			{
+				clinicVertBackward++;
+				ch[i][j] = 'W';//replaces with new character
+				ch[i+1][j] = 'W';
+				ch[i+2][j] = 'W';
+				ch[i+3][j] = 'W';
+				ch[i+4][j] = 'W';
+				ch[i+5][j] = 'W';
+			}
+		}
+	}
+
+	printf("\n\"Boat\" Appears Forward Vertically: %d", boatVertForward);
+	printf("\n\"Boat\" Appears Backward Vertically: %d", boatVertBackward);
+	printf("\n\"Engineer\" Appears Forward Vertically: %d", engineerVertForward);
+	printf("\n\"Engineer\" Appears Backward Vertically: %d", engineerVertBackward);
+	printf("\n\"Clinic\" Appears Forward Vertically: %d", clinicVertForward);
+	printf("\n\"Clinic\" Appears Backward Vertically: %d", clinicVertBackward);
+
+	return ch[SIZE1][SIZE2];
